@@ -14,9 +14,8 @@ export function Footer() {
           ))}
         </ScrollVelocityRow>
       </ScrollVelocityContainer>
-      <div className="mx-auto max-w-content px-6 md:px-10 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone border-t border-line">
+      <div className="mx-auto max-w-content px-6 md:px-10 py-8 flex items-center justify-center gap-3 text-xs text-stone border-t border-line">
         <p>© {new Date().getFullYear()} Dibyanshi Singh. Built with Next.js.</p>
-        <p>Dallas, TX</p>
       </div>
     </footer>
   );

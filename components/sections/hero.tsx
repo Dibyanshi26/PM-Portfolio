@@ -119,20 +119,6 @@ export function Hero() {
           <svg className="absolute -left-10 top-10 hidden md:block" width="60" height="2" aria-hidden>
             <line x1="0" y1="1" x2="60" y2="1" stroke="var(--accent)" strokeWidth="1" opacity="0.5" />
           </svg>
-
-          {hero.labels.map((label, i) => (
-            <motion.span
-              key={label}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 + i * 0.15 }}
-              className={`absolute text-[11px] px-3 py-1.5 rounded-full bg-surface/90 border border-line text-stone shadow-sm backdrop-blur-sm ${
-                i === 0 ? "-left-6 top-6 md:-left-10" : i === 1 ? "-right-4 top-1/2 md:-right-8" : "left-1/3 -bottom-4"
-              }`}
-            >
-              {label}
-            </motion.span>
-          ))}
         </motion.div>
       </div>
 

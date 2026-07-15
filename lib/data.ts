@@ -232,14 +232,11 @@ export const mediumFallbackPosts = [
 ];
 
 // ---------- Contact ----------
-// TODO: swap in your real LinkedIn/GitHub URLs — the resume PDF only had
-// hyperlinked text ("LinkedIn", "GitHub"), not the underlying URLs, so I
-// can't read those out of it. Email and phone below are from your resume.
 export const contact = {
   email: "dibyanshisingh611@gmail.com",
   phone: "(945) 244-8996",
-  linkedin: "https://www.linkedin.com/in/your-handle",
-  github: "https://github.com/your-handle",
+  linkedin: "https://www.linkedin.com/in/dibyanshisingh/",
+  github: "https://github.com/Dibyanshi26",
   medium: "https://medium.com/@dibyanshisingh611",
   location: "Dallas, TX",
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Mail, Linkedin, Github, PenLine, MapPin, Download } from "lucide-react";
+import { Mail, Linkedin, Github, PenLine, Download } from "lucide-react";
 import { TextScramble } from "@/components/motion/text-scramble";
 import { contact } from "@/lib/data";
 
@@ -32,10 +32,6 @@ export function Contact() {
               Let&apos;s build something useful.
             </TextScramble>
           </p>
-
-          <div className="mt-4 flex items-center justify-center gap-2 text-stone text-sm">
-            <MapPin size={14} /> {contact.location}
-          </div>
 
           <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
             {links.map(({ label, href, icon: Icon }) => (
