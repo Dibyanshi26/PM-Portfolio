@@ -9,13 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: "#f6f3ed",
-        surface: "#fffdf9",
-        ink: "#171714",
-        stone: "#777166",
-        clay: "#cc7658",
-        line: "rgba(35, 31, 26, 0.12)",
-        sand: "#EEE8DC",
+        paper: "#EEF3F2",
+        surface: "#FBFDFC",
+        ink: "#16302E",
+        stone: "#5C7370",
+        clay: "#2B6E74",
+        line: "#D3DEDD",
+        sand: "#DCE6E5",
       },
       fontFamily: {
         sans: ["var(--font-body)", "system-ui", "sans-serif"],
