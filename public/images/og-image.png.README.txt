@@ -1,0 +1,1 @@
+Add a real 1200x630 OG image here as og-image.png before deploying.
