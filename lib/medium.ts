@@ -15,6 +15,23 @@ function stripHtml(html: string) {
   return html.replace(/<[^>]*>/g, "").trim();
 }
 
+// Medium's RSS rarely sets a proper thumbnail field, but the article body
+// almost always opens with a cover image — pull that out directly instead.
+function extractFirstImage(html: string): string | null {
+  const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+  return match ? match[1] : null;
+}
+
+// Medium's content often opens with an image caption ("Photo by X on
+// Unsplash") and a repeated byline ("By Dibyanshi Singh") before the real
+// article text starts — strip those so the excerpt reads cleanly.
+function cleanExcerpt(text: string) {
+  return text
+    .replace(/^Photo by .+? on Unsplash\s*/i, "")
+    .replace(/^By\s+[A-Z][a-zA-Z.\s]{2,40}\s+/, "")
+    .trim();
+}
+
 function estimateReadingTime(text: string) {
   const words = text.split(/\s+/).length;
   return Math.max(1, Math.round(words / 200));
@@ -32,7 +49,11 @@ export async function getWritingPosts(): Promise<
     }
 
     return data.items.slice(0, 6).map((item: any) => {
-      const description = stripHtml(item.description || "").slice(0, 180);
+      const rawHtml = item.content || item.description || "";
+      const plainText = cleanExcerpt(stripHtml(item.description || ""));
+      const description = plainText.slice(0, 180) + (plainText.length > 180 ? "…" : "");
+      const thumbnail = item.thumbnail || extractFirstImage(rawHtml) || "/images/writing/medium-cover.png";
+
       return {
         title: item.title,
         link: item.link,
@@ -43,9 +64,9 @@ export async function getWritingPosts(): Promise<
               year: "numeric",
             })
           : "",
-        description: description + (description.length === 180 ? "…" : ""),
-        thumbnail: item.thumbnail || "/images/writing/medium-placeholder.svg",
-        readingTime: estimateReadingTime(stripHtml(item.description || "")),
+        description,
+        thumbnail,
+        readingTime: estimateReadingTime(plainText),
       };
     });
   } catch {
