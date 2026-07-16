@@ -239,6 +239,13 @@ export const capabilities = [
   },
 ];
 
+// Manually chosen thumbnails always win over whatever image (if any) Medium's
+// feed happens to return for a post. Match is a case-insensitive substring
+// check against the post title.
+export const thumbnailOverrides: { match: string; thumbnail: string }[] = [
+  { match: "1M+ Healthcare Records", thumbnail: "/images/writing/medium-cover.png" },
+];
+
 // ---------- Writing ----------
 export const mediumFallbackPosts = [
   {

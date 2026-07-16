@@ -1,4 +1,4 @@
-import { mediumFallbackPosts } from "@/lib/data";
+import { mediumFallbackPosts, thumbnailOverrides } from "@/lib/data";
 
 export type WritingPost = {
   title: string;
@@ -12,7 +12,7 @@ const MEDIUM_USERNAME = "dibyanshisingh611";
 const FEED_URL = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${MEDIUM_USERNAME}`;
 
 function stripHtml(html: string) {
-  return html.replace(/<[^>]*>/g, "").trim();
+  return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
 
 // Medium's RSS rarely sets a proper thumbnail field, but the article body
@@ -22,18 +22,26 @@ function extractFirstImage(html: string): string | null {
   return match ? match[1] : null;
 }
 
+function getThumbnailOverride(title: string): string | null {
+  const found = thumbnailOverrides.find((o) =>
+    title.toLowerCase().includes(o.match.toLowerCase())
+  );
+  return found ? found.thumbnail : null;
+}
+
 // Medium's content often opens with an image caption ("Photo by X on
 // Unsplash") and a repeated byline ("By Dibyanshi Singh") before the real
-// article text starts — strip those so the excerpt reads cleanly.
+// article text starts. These can appear glued together with no whitespace
+// once HTML is stripped, so match loosely rather than anchoring on spacing.
 function cleanExcerpt(text: string) {
-  return text
-    .replace(/^Photo by .+? on Unsplash\s*/i, "")
-    .replace(/^By\s+[A-Z][a-zA-Z.\s]{2,40}\s+/, "")
-    .trim();
+  let cleaned = text;
+  cleaned = cleaned.replace(/^\s*Photo\s+by\s+.{0,60}?\s+on\s+Unsplash\.?/i, "");
+  cleaned = cleaned.replace(/^\s*By\s+Dibyanshi\s+Singh\b\.?/i, "");
+  return cleaned.trim();
 }
 
 function estimateReadingTime(text: string) {
-  const words = text.split(/\s+/).length;
+  const words = text.split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(words / 200));
 }
 
@@ -52,7 +60,11 @@ export async function getWritingPosts(): Promise<
       const rawHtml = item.content || item.description || "";
       const plainText = cleanExcerpt(stripHtml(item.description || ""));
       const description = plainText.slice(0, 180) + (plainText.length > 180 ? "…" : "");
-      const thumbnail = item.thumbnail || extractFirstImage(rawHtml) || "/images/writing/medium-cover.png";
+      const thumbnail =
+        getThumbnailOverride(item.title || "") ||
+        item.thumbnail ||
+        extractFirstImage(rawHtml) ||
+        "/images/writing/medium-cover.png";
 
       return {
         title: item.title,
