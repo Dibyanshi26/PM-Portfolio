@@ -105,16 +105,28 @@ function ProjectCard({ project, index }: { project: (typeof projects)[number]; i
             </div>
           </div>
 
-          {project.demoUrl && (
-            <a
-              href={project.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-clay transition-colors"
-            >
-              View live demo <ArrowUpRight size={15} />
-            </a>
-          )}
+          <div className="mt-6 flex flex-wrap items-center gap-6">
+            {project.demoUrl && (
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-clay transition-colors"
+              >
+                View live demo <ArrowUpRight size={15} />
+              </a>
+            )}
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-clay transition-colors"
+              >
+                View on GitHub <ArrowUpRight size={15} />
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>
