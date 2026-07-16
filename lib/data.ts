@@ -137,6 +137,26 @@ export const projects = [
     githubUrl: null,
     badge: "Hackathon Runner-Up",
   },
+  {
+    slug: "ai-email-agent",
+    title: "AI Email Intelligence Agent",
+    tagline: "Turns a Gmail inbox into a structured, actionable operations dashboard.",
+    user: "Anyone managing high email volume who needs priority and next actions surfaced automatically instead of manually triaging.",
+    problem:
+      "Incoming emails carried decisions, deadlines, and follow-ups that lived only in the inbox — no structured way to track or act on them without manually re-reading and summarizing.",
+    decision:
+      "Turn email into structured data at the moment it arrives, rather than relying on someone to manually triage it later — and build it modularly so the same pipeline could later trigger replies, calendar events, or tasks.",
+    solution:
+      "Built an automated n8n workflow that triggers on incoming Gmail messages, retrieves the full message, and uses Google Gemini to extract category, priority, summary, reply requirements, deadlines, and recommended actions. Extracted data is logged into a centralized Google Sheets dashboard.",
+    outcome:
+      "Transformed unstructured email conversations into actionable operational data, with a modular architecture ready to extend into AI-drafted replies, calendar event creation, and task management.",
+    role: "Designed and built the full workflow solo — trigger, Gemini extraction schema, and the Sheets logging pipeline.",
+    tech: ["n8n", "Google Gemini", "Gmail API", "Google Sheets API"],
+    flow: ["Email trigger", "Fetch message", "Gemini analysis", "Structured extract", "Log to sheet"],
+    demoUrl: null,
+    githubUrl: "https://github.com/Dibyanshi26/ai-email-intelligence-agent",
+    badge: null,
+  },
 ];
 
 export const enablementTeaser = {
